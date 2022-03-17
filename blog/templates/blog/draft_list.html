@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+{% block body %}
+<div class="container">
+    <h1 class='b'>Drafts</h1>
+</div>
+<hr>
+<!-- Post lis theme -->
+<div class="container mt-5">
+    {% for post in posts %}
+    
+    <div  class="post text-white py-4 px-5 mb-2" style='background-color:#052c1e85;'>
+        <h1 class='text-warning '><a class='list_title text-warning text-decoration-none' href="{% url 'blog:detail' pk=post.pk %}">{{post.title}}</a></h1>
+        <div class="date">
+            <p class='text-danger'>Created on: {{post.create_date|date:"D M Y"}}</p>
+        </div>
+        <div class="preview text-white">
+            <p>
+                <p>{{post.text|truncatechars:80}}</p>
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock body %}

@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% block body %}
+
+<form  method="post">
+    {% csrf_token %}
+    <div class="container text-center mt-5">
+
+        <h2>Are you sure you want to delete {{object}}</h2>
+        <div class="mt-5">
+
+            <input type="submit" class="btn btn-danger mx-2" value="Yes">
+            <a href="{% url 'blog:post_list' %}" class="btn btn-success mx-2">No</a>
+        </div>
+    </div>
+</form>
+
+
+{% endblock body %}

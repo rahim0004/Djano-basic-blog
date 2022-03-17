@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Medium style editor -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css"
+    type="text/css" media="screen" charset="utf-8">
+    <!-- custom css  -->
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <!-- oogle fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital@1&family=Russo+One&display=swap" rel="stylesheet">
+    
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+
+<body style="background-color:#171c2a; color:white;">
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bdg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'blog:post_list' %}">MyBlog</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'blog:about' %}"></a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="https://github.com/"><i class="fa-brands fa-github fa-xl"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.linkedin.com/"><i class="fa-brands fa-linkedin fa-xl"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.facebook.com/"><i class="fa-brands fa-facebook fa-xl"></i></a>
+                </li>
+            </ul>
+            <div class="me-1">
+                {% if user.is_authenticated %}
+                <a href="/" class='text-warning mx-2 text-decoration-none'> Welcome {{user.username}} <i class="fa-solid fa-user"></i></a>
+                <a href="{% url 'blog:post_create' %}" class='btn btn-outline-warning btn-sm'><i class="fa-solid fa-circle-plus"> </i> New Post</a>
+                <a href="{% url 'blog:post_drafts' %}" class='btn btn-outline-warning btn-sm'><i class="fa-solid fa-layer-group"></i> Draft</a>
+                <a href="{% url 'logout' %}" class='btn btn-outline-warning btn-sm'> Log Out <i class="fa-solid fa-right-to-bracket fa-sm"></i></a>
+                {% else %}
+                <a href="{% url 'login' %}" class='btn btn-outline-warning btn-sm'> Log In <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</nav>
+{% block body %}
+
+{% endblock body %}
+<!--Medium editor css-->
+<script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+<!--font awesome-->
+<script src="https://kit.fontawesome.com/70387c4494.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

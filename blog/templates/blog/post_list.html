@@ -1,0 +1,82 @@
+{% extends 'blog/base.html' %}
+{% block titlw %}My Blog{% endblock titlw %}
+{% block body %}
+ <div class="container text-white"><h1 class='border-bottom'>Recent Posts</h1></div>
+<div class="container mt-5">
+    {% for post in page_obj %}
+    <div  class="post text-white py-4 px-5 mb-2" style='background-color:#25252585;'>
+        <h1 class='text-warning '><a class='list_title text-warning text-decoration-none' href="{% url 'blog:detail' pk=post.pk %}">{{post.title}}</a></h1>
+        <div class="date">
+            <p class='text-danger'>Published on: {{post.published_date|date:"D M Y"}}</p>
+        </div>
+        <div class="preview text-white">
+            <p>
+                <p>{{post.text|truncatechars:80}}</p>
+            </p>
+        </div>
+        <a href="{% url 'blog:detail' pk=post.pk%}">Comments:{{post.approve_comments.count}}</a>
+    </div>
+    {% endfor %}
+</div> 
+
+
+
+
+
+
+
+<div class="container my-3">
+
+    {% if page_obj.has_other_pages %}
+    <nav aria-label="...">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        
+        <li class="page-item">
+            <a class="page-link" href="?page={{page_obj.previous_page_number}}" tabindex="-1" aria-disabled="false">Previous</a>
+        </li>
+      {% else %}
+      
+      <li class="page-item disabled">
+          <a class="page-link"  tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        {% endif %}
+        
+        {% for i in page_obj.paginator.page_range %}
+        {% if i == page_obj.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">{{ i }}</a>
+            </li>
+            
+        {% else %}
+           {% if i == 1 %}
+            <li class="page-item"><a class="page-link" href="/">{{i}}</a></li>
+           
+           {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{i}}</a></li>
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+        
+        
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="?page={{page_obj.previous_page_number}}" tabindex="-1" aria-disabled="true">Next</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+</div>
+
+
+
+
+
+
+
+{% endblock body %}
